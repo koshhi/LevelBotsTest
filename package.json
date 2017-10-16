@@ -1,7 +1,7 @@
 {
   "name": "LevelBotsTest",
   "scripts": {
-    "start": "node server.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Cesar Alvarez Marin",
