@@ -1,19 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-// const CompanySchema = Schema ({
-// 	name: String,
-// 	picture: String,
-// 	price: {type: Number, default: 0},
-// 	category: {type: String, enum: ['computers', 'phones', 'accesories']},
-// 	description: String
-// })
-
 const CompanySchema = Schema ({
-	// ofObjectId: {
-	// 	type:[Schema.Types.ObjectId],
-	// 	required: true
-	// },
     name: {
     	type:String,
     	required: "El nombre de la empresa es obligario"
@@ -56,30 +44,11 @@ const CompanySchema = Schema ({
         minlength: [0,"campo vacio"],
     	required: "La lista de productos es obligatoria"
     },
-    // [
-    //     {
-    //     name:{
-    //         type: String,
-    //         required: true
-    //         // permalink: String
-    //     }
-    // ],
     relationships: {
     	type:Array,
         minlength: [0,"campo vacio"],
     	required: "La lista de miembros es obligatoria"
     },
-    // [
-    //     {
-    //         is_past: Boolean,
-    //         title: String,
-    //         person: {
-    //             first_name: String,
-    //             last_name: String,
-    //             permalink: String
-    //         }
-    //     }
-    // ],
     competitions: [
         {
             competitor: {

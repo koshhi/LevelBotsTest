@@ -20,7 +20,6 @@ var router = express.Router()
 
 router.get('/companies', (req, res) => {
 //Devuelve lista con los nombres de cada empresa junto a con el link de su web y su id.
-//FUNCIONA
 
 	Company.find({},"name homepage_url _id", (err, companies) =>{
 		if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
@@ -32,7 +31,6 @@ router.get('/companies', (req, res) => {
 
 router.get('/company/:id', (req, res) => {
 //El objeto de la empresa completo
-//FUNCIONA
 
 	let id = req.params.id
 
@@ -47,7 +45,6 @@ router.get('/company/:id', (req, res) => {
 
 router.get('/company/:id/products', (req, res) => {
 //Lista con los nombres de los productos
-//FUNCIONA
 
 	let id = req.params.id
 
@@ -63,7 +60,6 @@ router.get('/company/:id/products', (req, res) => {
 
 router.get('/company/:id/members', (req, res) => {
 //Lista con los nombres y títulos de los miembros actuales de la compañía
-//FUNCIONA
 
 	let id = req.params.id
 
@@ -79,7 +75,6 @@ router.get('/company/:id/members', (req, res) => {
 
 router.post('/company', (req, res) => {
 //Añade una nueva compañía a la empresa. La empresa debe tener como mínimo id, lista de productos y listas de miembros
-//FUNCIONA
 
 	let company = new Company ()
 	company.name = req.body.name
@@ -117,14 +112,10 @@ router.post('/company/:id/producto', (req, res) => {
 			if(productFound) return res.status(404).send({message:'El producto está repetido'})
 
 			if (!productFound){
-				console.log("Producto no repetido")
-				console.log(newProduct)
-
 				Company.update({ _id: id },{$push: {products: newProduct}}, {upsert:true}, (err)=>{
 					if(err) return res.json({success: false, message: err})
 					
-					// res.json({success: true})
-					res.json({companyProducts: companyProducts})
+					res.json({companyProducts: newProduct})
 				})
 			}
 		}
