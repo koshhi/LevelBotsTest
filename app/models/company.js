@@ -15,7 +15,7 @@ const CompanySchema = Schema ({
 	// 	required: true
 	// },
     name: {
-    	type:[String],
+    	type:String,
     	required: "El nombre de la empresa es obligario"
     },
     permalink: String,
@@ -52,17 +52,21 @@ const CompanySchema = Schema ({
         ]
     },
     products: {
-    	type:[Array],
+    	type:Array,
+        minlength: [0,"campo vacio"],
     	required: "La lista de productos es obligatoria"
     },
     // [
     //     {
-    //         name: String,
-    //         permalink: String
+    //     name:{
+    //         type: String,
+    //         required: true
+    //         // permalink: String
     //     }
     // ],
     relationships: {
-    	type:[Array],
+    	type:Array,
+        minlength: [0,"campo vacio"],
     	required: "La lista de miembros es obligatoria"
     },
     // [

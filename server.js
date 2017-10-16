@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 const Company= require('./app/models/company')
-const Product= require('./app/models/product')
+// const Product= require('./app/models/product')
 const configDB = require('./config/database.js')
 
 //configure app to use bodyParser()
@@ -95,26 +95,71 @@ router.post('/company', (req, res) => {
 	})
 })
 
+//v3
 router.post('/company/:id/producto', (req, res) => {
 //Añade un nuevo producto a una empresa
 	let id = req.params.id
 
-	let product = new Product ()
-	product.name = req.body.name
-	console.log(product)
+	productName = req.body.name
 
 	Company.findById(id, "products",(err, companyProducts)=>{
+		
 		if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
+
 		if (!companyProducts) return res.status(404).send({message:'La compañía no tiene productos'})
-		
-		product.save((err, productStored) =>{
-			if (err) res.status(500).send({message: `Error al salvar en la DB: ${err} `})
-		
-			res.status(300).send({product: productStored})
-		})
+
+		if (companyProducts){
+
+			let newProduct = { name: productName }
+
+			var productFound = companyProducts.products.some(found => found["name"] == productName)
+
+			if(productFound) return res.status(404).send({message:'El producto está repetido'})
+
+			if (!productFound){
+				console.log("Producto no repetido")
+				console.log(newProduct)
+
+				Company.update({ _id: id },{$push: {products: newProduct}}, {upsert:true}, (err)=>{
+					if(err) return res.json({success: false, message: err})
+					
+					// res.json({success: true})
+					res.json({companyProducts: companyProducts})
+				})
+			}
+		}
 	})
 })
+//v2
+// router.post('/company/:id/producto', (req, res) => {
+// //Añade un nuevo producto a una empresa
+// 	let id = req.params.id
 
+// 	let product = new Product ()
+// 	product.name = req.body.name
+// 	console.log(product)
+
+// 	Company.findById(id, "products",(err, companyProducts)=>{
+// 		if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
+
+// 		if (!companyProducts) return res.status(404).send({message:'La compañía no tiene productos'})
+
+// 		if (companyProducts){
+
+// 			var productFound = companyProducts.products.some(found => found["name"] == product.name)
+
+// 			if (!productFound){
+// 				Company.update({$push: {products: product}}, {upsert:true}, (err)=>{
+// 					if(err) return res.json({success: false, message: err})
+					
+// 					res.json({success: true});
+// 				})
+// 			}
+// 		}
+// 	})
+// })
+
+//v1
 // router.post('/company/:id/producto', (req, res) => {
 // //Añade un nuevo producto a una empresa
 // 	let id = req.params.id
