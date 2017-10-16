@@ -2,10 +2,14 @@
   "name": "LevelBotsTest",
   "main": "server.js",
   "author": "Cesar Alvarez Marin",
-  "license":"MIT",
+  "license": "MIT",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
+    "crypto": "^1.0.1",
     "express": "^4.14.0",
+    "jwt-simple": "^0.5.1",
+    "moment": "^2.19.1",
     "mongoose": "^4.6.0"
   }
 }

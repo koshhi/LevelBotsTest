@@ -41,12 +41,10 @@ const CompanySchema = Schema ({
     },
     products: {
     	type:Array,
-        minlength: [0,"campo vacio"],
     	required: "La lista de productos es obligatoria"
     },
     relationships: {
     	type:Array,
-        minlength: [0,"campo vacio"],
     	required: "La lista de miembros es obligatoria"
     },
     competitions: [

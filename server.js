@@ -1,7 +1,7 @@
 // CONFIGURACIÓN BASE
 const mongoose = require('mongoose')
 const app = require ('./app')
-const config = require('./config/database.js') // Configuración base de datos
+const config = require('./config') // Configuración base de datos
 
 //CONEXIÓN CON EL SERVIDOR
 mongoose.connect(config.db, (err, res) =>{
