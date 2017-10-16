@@ -30,3 +30,6 @@ post('/signUp')
 post('/signIn')
 
 get('/private') //Devuelve el mensaje: Tienes acceso. Confirmación del sistema de token
+
+URL:
+https://api-rest-levelbots-test.herokuapp.com/api/
