@@ -6,6 +6,10 @@ const auth = require('../middlewares/auth')
 //RUTAS API 
 const api = express.Router()
 
+api.get('/', (req, res)=>{
+	res.status(200).send({message:'api-rest-levelbots-test'})
+})
+
 api.get('/companies', companyCtrl.getCompanies) //Devuelve lista con los nombres de cada empresa junto a con el link de su web y su id.
 api.get('/company/:id', companyCtrl.getCompany) //Devuelve el objeto de la empresa completo.
 api.get('/company/:id/products', companyCtrl.getCompanyProducts) //Devuelve la lista con los nombres de los productos
